@@ -7,13 +7,26 @@ import { useState } from "react";
 import { useAuth } from "../../hooks/auth";
 
 export function Profile() {
-	const { user } = useAuth();
+	const { user, updateProfile } = useAuth();
 
 	const [profileImg, setProfileImg] = useState(null);
 	const [name, setName] = useState(user.name);
 	const [email, setEmail] = useState(user.email);
 	const [newPassword, setNewPassword] = useState("");
 	const [currentPassword, setCurrentPassword] = useState("");
+
+	async function handleUpdate(e) {
+		e.preventDefault();
+
+		const user = {
+			name,
+			email,
+			old_password: currentPassword,
+			password: newPassword,
+		};
+
+		await updateProfile({ user });
+	}
 
 	return (
 		<Container>
@@ -60,7 +73,7 @@ export function Profile() {
 					icon={RiLockLine}
 					onChange={(e) => setNewPassword(e.target.value)}
 				/>
-				<Button title="Salvar" type="submit" />
+				<Button title="Salvar" type="submit" onClick={handleUpdate} />
 			</Form>
 		</Container>
 	);

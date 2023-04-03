@@ -31,6 +31,22 @@ function AuthProvider({ children }) {
 		setData({});
 	}
 
+	async function updateProfile({ user }) {
+		try {
+			await api.put("users", user);
+
+			const { name, email } = user;
+
+			localStorage.setItem("@rocketmovies:user", JSON.stringify({ name, email }));
+			localStorage.setItem("@rocketmovies:token", data.token);
+			setData({ user, token: data.token });
+
+			alert("Perfil atualizado com sucesso!");
+		} catch (err) {
+			alert(err.response.data.error);
+		}
+	}
+
 	useEffect(() => {
 		const user = localStorage.getItem("@rocketmovies:user");
 		const token = localStorage.getItem("@rocketmovies:token");
@@ -46,6 +62,7 @@ function AuthProvider({ children }) {
 			value={{
 				signIn,
 				signOut,
+				updateProfile,
 				user: data.user,
 			}}
 		>
