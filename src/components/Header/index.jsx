@@ -2,9 +2,12 @@ import { Container, Profile } from "./styles";
 import { Input } from "../../components/Input";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/auth";
+import { api } from "../../services/api";
 
 export function Header() {
-	const { signOut } = useAuth();
+	const { signOut, user } = useAuth();
+
+	const avatarUrl = user.avatar ? `${api.defaults.baseURL}files/${user.avatar}` : avatarPlaceholder;
 
 	return (
 		<Container>
@@ -14,13 +17,13 @@ export function Header() {
 			<Input placeholder="Pesquisar por título" type="search" />
 			<Profile>
 				<div>
-					<p>Rafael Barbieri</p>
+					<p>{user.name}</p>
 					<a href="/" onClick={signOut}>
 						Sair
 					</a>
 				</div>
 				<Link to="/profile">
-					<img src="https://github.com/rafaelrmb.png" alt="Foto de perfil" />
+					<img src={avatarUrl} alt="Foto de perfil" />
 				</Link>
 			</Profile>
 		</Container>

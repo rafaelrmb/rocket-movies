@@ -31,13 +31,20 @@ function AuthProvider({ children }) {
 		setData({});
 	}
 
-	async function updateProfile({ user }) {
+	async function updateProfile({ user, profileImgPreview }) {
 		try {
+			if (profileImgPreview) {
+				const formData = new FormData();
+				formData.append("avatar", profileImgPreview);
+
+				const response = await api.patch("users/avatar", formData);
+				user.avatar = response.data.avatar;
+			}
 			await api.put("users", user);
 
-			const { name, email } = user;
+			const { name, email, avatar } = user;
 
-			localStorage.setItem("@rocketmovies:user", JSON.stringify({ name, email }));
+			localStorage.setItem("@rocketmovies:user", JSON.stringify({ name, email, avatar }));
 			localStorage.setItem("@rocketmovies:token", data.token);
 			setData({ user, token: data.token });
 

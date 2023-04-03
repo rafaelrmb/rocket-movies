@@ -5,15 +5,20 @@ import { Button } from "../../components/Button";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../../hooks/auth";
+import avatarPlaceholder from "../../assets/avatar_placeholder.svg";
+import { api } from "../../services/api";
 
 export function Profile() {
 	const { user, updateProfile } = useAuth();
 
-	const [profileImg, setProfileImg] = useState(null);
 	const [name, setName] = useState(user.name);
 	const [email, setEmail] = useState(user.email);
 	const [newPassword, setNewPassword] = useState("");
 	const [currentPassword, setCurrentPassword] = useState("");
+
+	const avatarUrl = user.avatar ? `${api.defaults.baseURL}files/${user.avatar}` : avatarPlaceholder;
+	const [profileImg, setProfileImg] = useState(avatarUrl);
+	const [profileImgPreview, setProfileImgPreview] = useState(null);
 
 	async function handleUpdate(e) {
 		e.preventDefault();
@@ -25,25 +30,32 @@ export function Profile() {
 			password: newPassword,
 		};
 
-		await updateProfile({ user });
+		await updateProfile({ user, profileImgPreview });
+	}
+
+	async function handleChangeAvatar(e) {
+		const file = e.target.files[0];
+		setProfileImgPreview(file);
+
+		setProfileImg(URL.createObjectURL(file));
 	}
 
 	return (
 		<Container>
 			<header>
 				<Link to="/">
-					<a>
+					<p>
 						<RiArrowLeftLine />
 						Voltar
-					</a>
+					</p>
 				</Link>
 			</header>
 			<Form>
 				<div className="image-container">
-					<img src="https://github.com/rafaelrmb.png" alt="Foto de perfil" />
+					<img src={profileImg} alt="Foto de perfil" />
 					<label htmlFor="profile-img">
 						<RiCameraLine />
-						<input type="file" id="profile-img" />
+						<input type="file" id="profile-img" onChange={handleChangeAvatar} />
 					</label>
 				</div>
 
