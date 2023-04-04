@@ -72,7 +72,7 @@ export function NewMovie() {
 						onChange={(e) => setTitle(e.target.value)}
 					/>
 					<Input
-						placeholder='Sua nota (de 0 a 5)'
+						placeholder='Sua nota (de 1 a 5)'
 						type='number'
 						min='0'
 						max='5'
