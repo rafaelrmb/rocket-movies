@@ -105,6 +105,7 @@ export function NewMovie() {
 					<Button
 						title='Cancelar'
 						id='cancel-btn'
+						onClick={(e) => navigate('/')}
 					/>
 					<Button
 						title='Salvar alterações'
