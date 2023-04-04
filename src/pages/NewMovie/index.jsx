@@ -21,13 +21,24 @@ export function NewMovie() {
 
 	async function handleNewMovie(e) {
 		e.preventDefault();
+
+		if (!title || !description || !tags) {
+			alert('Por favor, preencha todos os campos');
+			return;
+		}
+
+		if (isNaN(rating) || rating < 1 || rating > 5) {
+			alert('Por favor, preencha o campo "Avaliação" com um número entre 1 e 5');
+			return;
+		}
+
 		const { movie } = await api.post('/movies', {
 			title,
 			description,
 			rating,
 			tags,
 		});
-		console.log(movie);
+
 		alert('Filme cadastrado com sucesso!');
 		navigate('/');
 	}
