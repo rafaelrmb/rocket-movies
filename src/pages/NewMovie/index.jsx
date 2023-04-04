@@ -32,6 +32,16 @@ export function NewMovie() {
 			return;
 		}
 
+		if (
+			tags.length > 5 ||
+			!tags.every((tag) => typeof tag === 'string' && tag.length > 0 && tag.length <= 20)
+		) {
+			alert(
+				'Por favor, preencha o campo "Tags" com até 5 tags separadas por vírgulas, cada uma com uma string de 1 a 10 caracteres'
+			);
+			return;
+		}
+
 		const { movie } = await api.post('/movies', {
 			title,
 			description,
@@ -45,6 +55,12 @@ export function NewMovie() {
 
 	function handleAddTag(e) {
 		e.preventDefault();
+
+		if (tags.length === 5) {
+			alert('Adicione até 5 tags.');
+			return;
+		}
+
 		setTags((prevState) => [...prevState, newTag]);
 		setNewTag('');
 	}
