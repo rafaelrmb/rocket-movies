@@ -7,15 +7,15 @@ import { api } from '../../services/api';
 import { useState, useEffect } from 'react';
 
 export function MovieDetails() {
-	const params = useParams();
+	const { id } = useParams();
 	const [data, setData] = useState(null);
-	const user = localStorage.getItem('@rocketmovies:user');
-	const userData = JSON.parse(user);
+	const user = JSON.parse(localStorage.getItem('@rocketmovies:user')) || {};
+	const { name, avatar } = user;
 
 	useEffect(() => {
 		async function getMovie() {
 			try {
-				const response = await api.get(`/movies/${params.id}`);
+				const response = await api.get(`/movies/${id}`);
 				setData(response.data);
 			} catch (error) {
 				console.error(error);
@@ -23,20 +23,24 @@ export function MovieDetails() {
 		}
 
 		getMovie();
-	}, [params.id]);
+	}, [id]);
 
 	if (data === null) {
 		return <div>Carregando...</div>;
 	}
 
-	const rating = data.rating;
-	const stars = [];
-	for (let i = 0; i < 5; i++) {
-		if (i < rating) {
-			stars.push(<RiStarFill key={i} />);
-		} else {
-			stars.push(<RiStarLine key={i} />);
+	const { title, rating, tags, description } = data;
+
+	function getStars(rating) {
+		const stars = [];
+		for (let i = 0; i < 5; i++) {
+			if (i < rating) {
+				stars.push(<RiStarFill key={i} />);
+			} else {
+				stars.push(<RiStarLine key={i} />);
+			}
 		}
+		return stars;
 	}
 
 	return (
@@ -53,17 +57,17 @@ export function MovieDetails() {
 						</Link>
 
 						<div id='movie-info'>
-							<h1>{data.title}</h1>
-							<div id='rating'>{stars}</div>
+							<h1>{title}</h1>
+							<div id='rating'>{getStars(rating)}</div>
 						</div>
 
 						<div id='created-by'>
 							<p>
 								<img
-									src={`${api.defaults.baseURL}files/${userData.avatar}`}
+									src={`${api.defaults.baseURL}files/${avatar}`}
 									alt='foto de perfil do usuario'
 								/>
-								Por {userData.name}
+								Por {name}
 							</p>
 							<p>
 								<RiTimeLine />
@@ -78,14 +82,14 @@ export function MovieDetails() {
 					</Info>
 
 					<div id='tags'>
-						{data.tags.map((tag) => (
+						{tags.map((tag) => (
 							<Tag
 								key={tag.id}
 								title={tag.name}
 							/>
 						))}
 					</div>
-					<p id='movie-summary'>{data.description}</p>
+					<p id='movie-summary'>{description}</p>
 				</main>
 			)}
 		</Container>
