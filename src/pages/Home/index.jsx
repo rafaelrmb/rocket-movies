@@ -3,17 +3,21 @@ import { Button } from '../../components/Button';
 import { Header } from '../../components/Header';
 import { MovieCard } from '../../components/MovieCard';
 import { RiAddFill } from 'react-icons/ri';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { api } from '../../services/api';
 
 export function Home() {
 	const [movies, setMovies] = useState([]);
+	const navigate = useNavigate();
+
+	function handleDetails(id) {
+		navigate(`/movies/${id}`);
+	}
 
 	useEffect(() => {
 		async function getMovies() {
 			const { data } = await api.get('/movies');
-			console.log(data);
 			setMovies(data);
 		}
 		getMovies();
@@ -37,6 +41,7 @@ export function Home() {
 						<MovieCard
 							key={String(movie.id)}
 							data={movie}
+							onClick={() => handleDetails(movie.id)}
 						/>
 					))}
 				</section>
