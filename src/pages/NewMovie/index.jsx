@@ -22,7 +22,7 @@ export function NewMovie() {
 	async function handleNewMovie(e) {
 		e.preventDefault();
 
-		if (!title || !description || !tags) {
+		if (!title || !description || !tags.length) {
 			alert('Por favor, preencha todos os campos');
 			return;
 		}
