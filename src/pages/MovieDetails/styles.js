@@ -26,14 +26,26 @@ export const Info = styled.div`
   flex-direction: column;
   gap: 2rem;
 
-  > a p{
+  > .actions {
     display: flex;
     align-items: center;
-    gap: .625rem;
+    justify-content: space-between;
 
-    color: ${({ theme }) => theme.COLORS.ACCENT};
+    margin-top: 1.5rem;
+
+    > button {
+      max-width: 12.5rem;
+    }
+
+    > a p {
+      display: flex;
+      align-items: center;
+      gap: .625rem;
+
+      color: ${({ theme }) => theme.COLORS.ACCENT};
+    }
   }
-
+  
   #movie-info {
     display: flex;
     align-items: stretch;
