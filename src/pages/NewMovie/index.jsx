@@ -5,12 +5,32 @@ import { Input } from '../../components/Input';
 import { TextArea } from '../../components/TextArea';
 import { Button } from '../../components/Button';
 import { MovieTag } from '../../components/MovieTag';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { api } from '../../services/api';
 
 export function NewMovie() {
+	const [title, setTitle] = useState('');
+	const [description, setDescription] = useState('');
+	const [rating, setRating] = useState(0);
+
 	const [tags, setTags] = useState([]);
 	const [newTag, setNewTag] = useState('');
+
+	const navigate = useNavigate();
+
+	async function handleNewMovie(e) {
+		e.preventDefault();
+		const { movie } = await api.post('/movies', {
+			title,
+			description,
+			rating,
+			tags,
+		});
+		console.log(movie);
+		alert('Filme cadastrado com sucesso!');
+		navigate('/');
+	}
 
 	function handleAddTag(e) {
 		e.preventDefault();
@@ -28,24 +48,29 @@ export function NewMovie() {
 			<Header />
 			<main>
 				<Link to='/'>
-					<a>
+					<p>
 						<RiArrowLeftLine />
 						Voltar
-					</a>
+					</p>
 				</Link>
 				<Form>
 					<h2>Novo filme</h2>
 					<Input
 						placeholder='Título'
 						type='text'
+						onChange={(e) => setTitle(e.target.value)}
 					/>
 					<Input
 						placeholder='Sua nota (de 0 a 5)'
 						type='number'
 						min='0'
 						max='5'
+						onChange={(e) => setRating(e.target.value)}
 					/>
-					<TextArea placeholder='Observações' />
+					<TextArea
+						placeholder='Descreva o filme'
+						onChange={(e) => setDescription(e.target.value)}
+					/>
 					<Section>
 						<span>Marcadores</span>
 						<div id='tags'>
@@ -70,7 +95,10 @@ export function NewMovie() {
 						title='Excluir filme'
 						id='delete-btn'
 					/>
-					<Button title='Salvar alterações' />
+					<Button
+						title='Salvar alterações'
+						onClick={(e) => handleNewMovie(e)}
+					/>
 				</Form>
 			</main>
 		</Container>
