@@ -22,14 +22,14 @@ export function SignUp() {
 
 		const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 		if (!emailRegex.test(email)) {
-			return alert('Invalid email address');
+			return alert('Endereço de email inválido');
 		}
 
 		const passwordRegex =
 			/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+=[\]{}|\\;:'",.<>/?-]).{8,}$/;
 		if (!passwordRegex.test(password)) {
 			return alert(
-				'Password must be at least 8 characters long, contain at least one digit, one lowercase letter, one uppercase letter, and one special character'
+				'Sua senha deve conter no mínimo 8 caracteres, conter um número, uma letra minúscula e uma maiúscula e um caractere especial.'
 			);
 		}
 
