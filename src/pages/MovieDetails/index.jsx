@@ -9,6 +9,8 @@ import { useState, useEffect } from 'react';
 export function MovieDetails() {
 	const params = useParams();
 	const [data, setData] = useState(null);
+	const user = localStorage.getItem('@rocketmovies:user');
+	const userData = JSON.parse(user);
 
 	useEffect(() => {
 		async function getMovie() {
@@ -58,10 +60,10 @@ export function MovieDetails() {
 						<div id='created-by'>
 							<p>
 								<img
-									src='https://github.com/rafaelrmb.png'
+									src={`${api.defaults.baseURL}files/${userData.avatar}`}
 									alt='foto de perfil do usuario'
 								/>
-								Por Rafael Barbieri
+								Por {userData.name}
 							</p>
 							<p>
 								<RiTimeLine />
