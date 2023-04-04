@@ -40,7 +40,7 @@ export const Form = styled.form`
   "title rating"
   "textarea textarea"
   "tags tags"
-  "delete save";
+  "cancel save";
   gap: 40px;
 
   > h2 {
@@ -64,8 +64,8 @@ export const Form = styled.form`
     grid-area: save;
   }
 
-  > button#delete-btn {
-    grid-area: delete;
+  > button#cancel-btn {
+    grid-area: cancel;
     color: ${({ theme }) => theme.COLORS.ACCENT};
     background-color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
   }

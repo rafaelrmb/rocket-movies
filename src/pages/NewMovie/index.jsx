@@ -103,8 +103,8 @@ export function NewMovie() {
 						</div>
 					</Section>
 					<Button
-						title='Excluir filme'
-						id='delete-btn'
+						title='Cancelar'
+						id='cancel-btn'
 					/>
 					<Button
 						title='Salvar alterações'
