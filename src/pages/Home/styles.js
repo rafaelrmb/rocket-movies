@@ -28,6 +28,7 @@ export const Container = styled.div`
     grid-area: main;
     margin: 0 auto;
     padding: 1.5rem clamp(2rem, 5vw, 7.75rem);
+    width: 100%;
     overflow-y: scroll;
 
     > header {
