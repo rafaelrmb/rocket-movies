@@ -22,7 +22,7 @@ export function MovieCard({ data, ...rest }) {
 				{data.tags.map((tag) => (
 					<Tag
 						key={tag.id}
-						title={tag.name}
+						title={tag.name.toLowerCase()}
 					/>
 				))}
 			</div>
