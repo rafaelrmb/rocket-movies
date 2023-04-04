@@ -10,7 +10,7 @@ export const Container = styled.div`
     padding-block: 4rem;
     padding-left: clamp(1rem, 10vw, 8rem);;
 
-    a {
+    a p{
       display: flex;
       align-items: center;
       gap: .625rem;

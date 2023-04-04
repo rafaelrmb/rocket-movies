@@ -26,7 +26,7 @@ export const Info = styled.div`
   flex-direction: column;
   gap: 2rem;
 
-  > a {
+  > a p{
     display: flex;
     align-items: center;
     gap: .625rem;

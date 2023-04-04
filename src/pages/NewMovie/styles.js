@@ -18,7 +18,7 @@ export const Container = styled.div`
     overflow-y: scroll;
     width: 100%;
 
-    a {
+    a p {
       display: flex;
       align-items: center;
       gap: .625rem;
