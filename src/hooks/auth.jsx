@@ -32,17 +32,16 @@ function AuthProvider({ children }) {
 		setData({});
 	}
 
-	async function updateProfile({ user, profileImgPreview }) {
+	async function updateProfile({ user, profileImgFile }) {
 		try {
-			if (profileImgPreview) {
+			if (profileImgFile) {
 				const formData = new FormData();
-				formData.append('avatar', profileImgPreview);
+				formData.append('avatar', profileImgFile);
 
 				const response = await api.patch('users/avatar', formData);
 				user.avatar = response.data.avatar;
 			}
 			await api.put('users', user);
-
 			const { name, email, avatar } = user;
 
 			localStorage.setItem('@rocketmovies:user', JSON.stringify({ name, email, avatar }));
