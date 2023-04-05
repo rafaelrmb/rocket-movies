@@ -17,6 +17,11 @@ export function SignIn() {
 		signIn({ email, password });
 	}
 
+	function handleRegister(e) {
+		e.preventDefault();
+		navigate('/register');
+	}
+
 	return (
 		<Container>
 			<Form>
@@ -39,7 +44,7 @@ export function SignIn() {
 					title='Entrar'
 					onClick={handleSignIn}
 				/>
-				<a onClick={navigate('/register')}>Criar conta</a>
+				<a onClick={handleRegister}>Criar conta</a>
 			</Form>
 			<Background />
 		</Container>
