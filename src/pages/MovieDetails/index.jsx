@@ -99,7 +99,7 @@ export function MovieDetails() {
 						<div id='created-by'>
 							<p>
 								<img
-									src={avatar ? `${api.defaults.baseURL}files/${avatar}` : avatarPlaceholder}
+									src={avatar ? `${api.defaults.baseURL}/files/${avatar}` : avatarPlaceholder}
 									alt='foto de perfil do usuario'
 								/>
 								Por {name}
