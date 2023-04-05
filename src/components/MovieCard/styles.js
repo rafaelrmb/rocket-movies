@@ -10,6 +10,10 @@ export const Container = styled.div`
   cursor: pointer;
   margin-top: 3rem;
   padding: 2rem;
+  
+  @media (max-width: 500px) {
+    max-width: 18.75rem;
+  }
 
   > h2 {
     color: ${({ theme }) => theme.COLORS.WHITE};
@@ -22,9 +26,9 @@ export const Container = styled.div`
 
     > svg {
       color: ${({ theme }) => theme.COLORS.ACCENT};
-    }    
+    }
   }
-
+    
   > #description {
     display: block;
     display: -webkit-box;

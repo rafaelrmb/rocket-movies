@@ -15,6 +15,27 @@ export const Container = styled.div`
     font-size: ${({ theme }) => theme.FONTSIZE.LARGE};
     font-weight: 700;
   }
+
+  @media (max-width: 768px) {
+    display: grid;
+    max-width: 400px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+    'logo profile'
+    'search search';
+
+    gap: 1.5rem;
+
+    > div:nth-of-type(1) {
+      grid-area: search;
+
+      max-width: 18.75rem;
+    }
+
+    > div:nth-of-type(2) {
+      grid-area: profile;
+    }
+  }
 `;
 
 export const Profile = styled.div`

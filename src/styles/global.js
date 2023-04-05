@@ -18,6 +18,7 @@ export default createGlobalStyle`
     font-family: var(--ff-primary);
     font-size: 1rem;
    -webkit-font-smoothing: antialiased;
+   overflow-x: hidden;
   }  
   
   a {

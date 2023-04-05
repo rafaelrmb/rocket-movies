@@ -39,6 +39,12 @@ export const Container = styled.div`
       > button {
         max-width: 12.9375rem;
       }
+
+      @media (max-width: 28.125rem) {
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: flex-start;
+      }
     }
   }
 `;

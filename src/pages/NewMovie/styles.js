@@ -41,7 +41,20 @@ export const Form = styled.form`
   "textarea textarea"
   "tags tags"
   "cancel save";
-  gap: 40px;
+  gap: 2.5rem;
+
+  @media (max-width: 500px) {
+    grid-template-areas:
+    "h2 h2"
+    "title title"
+    "rating rating"
+    "textarea textarea"
+    "tags tags"
+    "save save"
+    "cancel cancel";
+
+    gap: 1.25rem;
+  }
 
   > h2 {
     grid-area: h2;
