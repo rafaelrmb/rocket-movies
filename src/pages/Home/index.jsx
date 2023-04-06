@@ -8,11 +8,18 @@ import { useEffect, useState } from 'react';
 import { api } from '../../services/api';
 
 export function Home() {
+	const [filteredMovies, setFilteredMovies] = useState([]);
 	const [movies, setMovies] = useState([]);
+	const [search, setSearch] = useState('');
+
 	const navigate = useNavigate();
 
 	function handleDetails(id) {
 		navigate(`/movies/${id}`);
+	}
+
+	function handleSearch(query) {
+		setSearch(query);
 	}
 
 	useEffect(() => {
@@ -23,9 +30,16 @@ export function Home() {
 		getMovies();
 	}, []);
 
+	useEffect(() => {
+		const filtered = movies.filter((movie) =>
+			movie.title.toLowerCase().includes(search.toLowerCase())
+		);
+		setFilteredMovies(filtered);
+	}, [movies, search]);
+
 	return (
 		<Container>
-			<Header />
+			<Header onSearch={handleSearch} />
 			<main>
 				<header>
 					<h1>Meus filmes</h1>
@@ -37,7 +51,7 @@ export function Home() {
 					</Link>
 				</header>
 				<section className='movies'>
-					{movies.map((movie) => (
+					{filteredMovies.map((movie) => (
 						<MovieCard
 							key={String(movie.id)}
 							data={movie}
